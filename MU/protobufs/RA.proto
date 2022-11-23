@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package RAPackage;
+
+// RA Initialization Phase Service
+enum DeviceType {
+  SD = 0;
+  MU = 1;
+}
+
+message IDReq{
+  DeviceType deviceType = 1;
+  string message = 2;
+}
+
+message IDRes{
+  string ID = 1;
+  bool registered = 2;
+}
+service RAInit{
+  rpc GetID(IDReq) returns (IDRes) {}
+}
+
+// RA Registration Phase Service
+
+message RegSDReq{
+  string ID = 1;
+  string PID = 2;
+  string r = 3;
+}
+message RegSDRes{
+  string K_G = 1;
+}
+
+message RegMUReq{
+  string ID = 1;
+  string PID = 2;
+}
+
+message RegMURes{
+  string K_G = 1;
+  string RID = 2;
+}
+
+service RARegister{
+  rpc RegisterSD(RegSDReq) returns (RegSDRes) {}
+  rpc RegisterMU(RegMUReq) returns (RegMURes) {}
+
+}

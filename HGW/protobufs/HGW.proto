@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package HGWPackage;
+
+// HGW Registration Phase Service
+
+message StoreSDReq{
+  string ID = 1;
+  string PID = 2;
+  string r = 3;
+  string K_G = 4;
+}
+message StoreSDRes{
+  string status = 1;
+}
+
+message StoreMUReq{
+  string ID = 1;
+  string PID = 2 ;
+  string RID = 3;
+  string K_G = 4;
+}
+message StoreMURes{
+  string status = 1;
+}
+
+service HGWRegister{
+  rpc StoreSD(StoreSDReq) returns (StoreSDRes) {}
+  rpc StoreMU(StoreMUReq) returns (StoreMURes) {}
+}

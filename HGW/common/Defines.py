@@ -1,0 +1,3 @@
+
+
+S_KEY = S_RANDOM_NUMBER = S_RANDOM_NONCE = S_PASSWORD = S_ID = 16  # 16 Bytes <=> 128 bits

@@ -1,26 +1,24 @@
-import asyncio
-import grpc
-from common.base_logger import logger
-from config.config import settings
-from generated import RA_pb2_grpc
-from services.RAInitService import RAInitService
-from services.RARegisterService import RARegisterService
+# RA/server.py
 
-"""
-    gRPC Server
-"""
+from common.X import X
+from common.base_logger import logger
+import asyncio
+
+import grpc
+from config.config import settings
+
+from generated import HGW_pb2_grpc
+from services.HGWRegisterService import HGWRegisterService
 
 
 async def serve() -> None:
     server = grpc.aio.server()
-    RA_pb2_grpc.add_RAInitServicer_to_server(RAInitService(), server)
-    RA_pb2_grpc.add_RARegisterServicer_to_server(RARegisterService(), server)
 
-    listen_addr = '[::]:{}'.format(settings.RA_PORT)
-    logger.info("Starting server on {}".format(listen_addr))
+    HGW_pb2_grpc.add_HGWRegisterServicer_to_server(HGWRegisterService(), server)
 
+    listen_addr = '[::]:{}'.format(settings.HGW_PORT)
     server.add_insecure_port(listen_addr)
-
+    logger.info("Starting server on {}".format(listen_addr))
     await server.start()
     try:
         await server.wait_for_termination()

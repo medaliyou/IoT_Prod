@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import RA_pb2 as RA__pb2
+from generated import RA_pb2 as generated_dot_RA__pb2
 
 
 class RAInitStub(object):
@@ -16,8 +16,8 @@ class RAInitStub(object):
         """
         self.GetID = channel.unary_unary(
                 '/RAPackage.RAInit/GetID',
-                request_serializer=RA__pb2.IDReq.SerializeToString,
-                response_deserializer=RA__pb2.IDRes.FromString,
+                request_serializer=generated_dot_RA__pb2.IDReq.SerializeToString,
+                response_deserializer=generated_dot_RA__pb2.IDRes.FromString,
                 )
 
 
@@ -35,8 +35,8 @@ def add_RAInitServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetID': grpc.unary_unary_rpc_method_handler(
                     servicer.GetID,
-                    request_deserializer=RA__pb2.IDReq.FromString,
-                    response_serializer=RA__pb2.IDRes.SerializeToString,
+                    request_deserializer=generated_dot_RA__pb2.IDReq.FromString,
+                    response_serializer=generated_dot_RA__pb2.IDRes.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -60,8 +60,8 @@ class RAInit(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/RAPackage.RAInit/GetID',
-            RA__pb2.IDReq.SerializeToString,
-            RA__pb2.IDRes.FromString,
+            generated_dot_RA__pb2.IDReq.SerializeToString,
+            generated_dot_RA__pb2.IDRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -77,13 +77,13 @@ class RARegisterStub(object):
         """
         self.RegisterSD = channel.unary_unary(
                 '/RAPackage.RARegister/RegisterSD',
-                request_serializer=RA__pb2.RegSDReq.SerializeToString,
-                response_deserializer=RA__pb2.RegSDRes.FromString,
+                request_serializer=generated_dot_RA__pb2.RegSDReq.SerializeToString,
+                response_deserializer=generated_dot_RA__pb2.RegSDRes.FromString,
                 )
         self.RegisterMU = channel.unary_unary(
                 '/RAPackage.RARegister/RegisterMU',
-                request_serializer=RA__pb2.RegMUReq.SerializeToString,
-                response_deserializer=RA__pb2.RegMURes.FromString,
+                request_serializer=generated_dot_RA__pb2.RegMUReq.SerializeToString,
+                response_deserializer=generated_dot_RA__pb2.RegMURes.FromString,
                 )
 
 
@@ -107,13 +107,13 @@ def add_RARegisterServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'RegisterSD': grpc.unary_unary_rpc_method_handler(
                     servicer.RegisterSD,
-                    request_deserializer=RA__pb2.RegSDReq.FromString,
-                    response_serializer=RA__pb2.RegSDRes.SerializeToString,
+                    request_deserializer=generated_dot_RA__pb2.RegSDReq.FromString,
+                    response_serializer=generated_dot_RA__pb2.RegSDRes.SerializeToString,
             ),
             'RegisterMU': grpc.unary_unary_rpc_method_handler(
                     servicer.RegisterMU,
-                    request_deserializer=RA__pb2.RegMUReq.FromString,
-                    response_serializer=RA__pb2.RegMURes.SerializeToString,
+                    request_deserializer=generated_dot_RA__pb2.RegMUReq.FromString,
+                    response_serializer=generated_dot_RA__pb2.RegMURes.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -137,8 +137,8 @@ class RARegister(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/RAPackage.RARegister/RegisterSD',
-            RA__pb2.RegSDReq.SerializeToString,
-            RA__pb2.RegSDRes.FromString,
+            generated_dot_RA__pb2.RegSDReq.SerializeToString,
+            generated_dot_RA__pb2.RegSDRes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -154,7 +154,7 @@ class RARegister(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/RAPackage.RARegister/RegisterMU',
-            RA__pb2.RegMUReq.SerializeToString,
-            RA__pb2.RegMURes.FromString,
+            generated_dot_RA__pb2.RegMUReq.SerializeToString,
+            generated_dot_RA__pb2.RegMURes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

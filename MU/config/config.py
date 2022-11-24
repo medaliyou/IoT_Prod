@@ -13,10 +13,12 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str
     MONGO_INITDB_DATABASE: str
-    # SD_H: Optional[str]
-    # MU_H: Optional[str]
-    # RA_H: Optional[str]
-    # HGW_H: Optional[str]
+
+    SD_H: Optional[str]
+    MU_H: Optional[str]
+    RA_H: Optional[str]
+    HGW_H: Optional[str]
+
     SD_PORT: int
     MU_PORT: int
     RA_PORT: int

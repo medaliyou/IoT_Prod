@@ -19,6 +19,8 @@ message StoreMUReq{
   string PID = 2 ;
   string RID = 3;
   string K_G = 4;
+  optional string PID_n = 5;
+  optional string RID_n = 6;
 }
 message StoreMURes{
   string status = 1;

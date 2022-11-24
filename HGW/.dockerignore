@@ -1,0 +1,8 @@
+Dockerfile
+venv/
+.idea/
+__pycache__/
+*.py[cod]
+*$py.class
+**/*.pyc
+**/__pycache__

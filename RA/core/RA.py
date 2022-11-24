@@ -4,8 +4,6 @@ from common.SingletonMeta import SingletonMeta
 from common.X import X, XOps
 from common.base_logger import logger
 
-from stubs.HGW import HGWClient
-
 
 class RA(metaclass=SingletonMeta):
 
@@ -15,8 +13,6 @@ class RA(metaclass=SingletonMeta):
 
         self.__generate_K_RA()
         self.__generate_r_RA()
-
-        self._HGW_Client = HGWClient()
 
     def __generate_K_RA(self):
         # Generate Random K{RA} - 128 bits
@@ -46,27 +42,21 @@ class RA(metaclass=SingletonMeta):
         # RID MU = h( PID MU || K MUG )
         return XOps.hash(PID_MU + K_G_MU)
 
-    async def registerSD(self, ID_SD, PID_SD, r_SD) -> X:
-        _PID_SD = X(h=PID_SD)
-        _r_SD = X(h=r_SD)
-        _ID_SD = X(h=ID_SD)
+    def registerSD(self, ID, PID, r) -> X:
+        _PID_SD = X(h=PID)
+        _r_SD = X(h=r)
+        _ID_SD = X(h=ID)
         _K_G_SD = self.__compute_K_G_SD(_PID_SD)
         logger.info("K_G_SD={}".format(_K_G_SD))
-        # Save it to HGW
-        response = await self._HGW_Client.StoreSD(_ID_SD.h, _PID_SD.h, _r_SD.h, _K_G_SD.h)
-        logger.info("registerSD : {}".format(response.status))
         return _K_G_SD
 
-    async def registerMU(self, ID_MU, PID_MU) -> (X, X):
-        _PID_MU = X(h=PID_MU)
-        _ID_MU = X(h=ID_MU)
+    def registerMU(self, ID, PID) -> (X, X):
+        _PID_MU = X(h=PID)
+        _ID_MU = X(h=ID)
         _K_G_MU = self.__compute_K_G_MU(_PID_MU)
         _RID_MU = self.__compute_RID_MU(_PID_MU, _K_G_MU)
         logger.info("K_G_MU={}".format(_K_G_MU))
         logger.info("RID_MU={}".format(_RID_MU))
-        # Save it to HGW
-        response = await self._HGW_Client.StoreMU(_ID_MU.h, _PID_MU.h, _RID_MU.h, _K_G_MU.h)
-        logger.info("registerMU : {}".format(response.status))
         return _K_G_MU, _RID_MU
 
 

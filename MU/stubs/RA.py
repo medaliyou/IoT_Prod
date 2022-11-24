@@ -35,6 +35,7 @@ class RAClient(object):
             await asyncio.wait_for(self.channel.channel_ready(), 1.0)
             self.init_stub = RA_pb2_grpc.RAInitStub(self.channel)
             self.register_stub = RA_pb2_grpc.RARegisterStub(self.channel)
+
         except asyncio.exceptions.TimeoutError as to:
             logger.error("Stub timeout, {}".format(to))
             self.init_stub = RA_pb2_grpc.RAInitStub(self.channel)
@@ -67,8 +68,15 @@ class RAClient(object):
             return response
 
         except Exception as e:
-            # assert rpc_error.code() == grpc.StatusCode.UNAVAILABLE
-            message = e
+            logger.info("Client received: {}".format(e))
+
+    async def RegisterMU(self, ID_MU, PID_MU) -> RA_pb2.RegMURes:
+        # await self.__check_and_create_channel()
+        try:
+            request = RA_pb2.RegMUReq(ID=ID_MU, PID=PID_MU)
+            response = await self.register_stub.RegisterMU(request, wait_for_ready=True)
+            return response
+        except Exception as e:
             logger.info("Client received: {}".format(e))
 
 

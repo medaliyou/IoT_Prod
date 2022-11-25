@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13generated/HGW.proto\x12\nHGWPackage\"=\n\nStoreSDReq\x12\n\n\x02ID\x18\x01 \x01(\t\x12\x0b\n\x03PID\x18\x02 \x01(\t\x12\t\n\x01r\x18\x03 \x01(\t\x12\x0b\n\x03K_G\x18\x04 \x01(\t\"\x1c\n\nStoreSDRes\x12\x0e\n\x06status\x18\x01 \x01(\t\"{\n\nStoreMUReq\x12\n\n\x02ID\x18\x01 \x01(\t\x12\x0b\n\x03PID\x18\x02 \x01(\t\x12\x0b\n\x03RID\x18\x03 \x01(\t\x12\x0b\n\x03K_G\x18\x04 \x01(\t\x12\x12\n\x05PID_n\x18\x05 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05RID_n\x18\x06 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_PID_nB\x08\n\x06_RID_n\"\x1c\n\nStoreMURes\x12\x0e\n\x06status\x18\x01 \x01(\t2\x87\x01\n\x0bHGWRegister\x12;\n\x07StoreSD\x12\x16.HGWPackage.StoreSDReq\x1a\x16.HGWPackage.StoreSDRes\"\x00\x12;\n\x07StoreMU\x12\x16.HGWPackage.StoreMUReq\x1a\x16.HGWPackage.StoreMURes\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13generated/HGW.proto\x12\nHGWPackage\"=\n\nStoreSDReq\x12\n\n\x02ID\x18\x01 \x01(\t\x12\x0b\n\x03PID\x18\x02 \x01(\t\x12\t\n\x01r\x18\x03 \x01(\t\x12\x0b\n\x03K_G\x18\x04 \x01(\t\"\x1c\n\nStoreSDRes\x12\x0e\n\x06status\x18\x01 \x01(\t\"{\n\nStoreMUReq\x12\n\n\x02ID\x18\x01 \x01(\t\x12\x0b\n\x03PID\x18\x02 \x01(\t\x12\x0b\n\x03RID\x18\x03 \x01(\t\x12\x0b\n\x03K_G\x18\x04 \x01(\t\x12\x12\n\x05PID_n\x18\x05 \x01(\tH\x00\x88\x01\x01\x12\x12\n\x05RID_n\x18\x06 \x01(\tH\x01\x88\x01\x01\x42\x08\n\x06_PID_nB\x08\n\x06_RID_n\"\x1c\n\nStoreMURes\x12\x0e\n\x06status\x18\x01 \x01(\t\"=\n\x0b\x41uthKES1Req\x12\x0b\n\x03PID\x18\x01 \x01(\t\x12\n\n\x02M1\x18\x02 \x01(\t\x12\n\n\x02\x43\x31\x18\x03 \x01(\t\x12\t\n\x01V\x18\x04 \x01(\t\"&\n\x0b\x41uthKES4Res\x12\n\n\x02M5\x18\x01 \x01(\t\x12\x0b\n\x03V_G\x18\x02 \x01(\t\"&\n\x0b\x41uthKES6Req\x12\n\n\x02M5\x18\x01 \x01(\t\x12\x0b\n\x03PID\x18\x02 \x01(\t\"\x1d\n\x0b\x41uthKES6Res\x12\x0e\n\x06status\x18\x01 \x01(\t2\x87\x01\n\x0bHGWRegister\x12;\n\x07StoreSD\x12\x16.HGWPackage.StoreSDReq\x1a\x16.HGWPackage.StoreSDRes\"\x00\x12;\n\x07StoreMU\x12\x16.HGWPackage.StoreMUReq\x1a\x16.HGWPackage.StoreMURes\"\x00\x32\x8b\x01\n\tHGWAuthKE\x12>\n\x08\x41uthKES1\x12\x17.HGWPackage.AuthKES1Req\x1a\x17.HGWPackage.AuthKES4Res\"\x00\x12>\n\x08\x41uthKES5\x12\x17.HGWPackage.AuthKES6Req\x1a\x17.HGWPackage.AuthKES6Res\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'generated.HGW_pb2', globals())
@@ -28,6 +28,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _STOREMUREQ._serialized_end=251
   _STOREMURES._serialized_start=253
   _STOREMURES._serialized_end=281
-  _HGWREGISTER._serialized_start=284
-  _HGWREGISTER._serialized_end=419
+  _AUTHKES1REQ._serialized_start=283
+  _AUTHKES1REQ._serialized_end=344
+  _AUTHKES4RES._serialized_start=346
+  _AUTHKES4RES._serialized_end=384
+  _AUTHKES6REQ._serialized_start=386
+  _AUTHKES6REQ._serialized_end=424
+  _AUTHKES6RES._serialized_start=426
+  _AUTHKES6RES._serialized_end=455
+  _HGWREGISTER._serialized_start=458
+  _HGWREGISTER._serialized_end=593
+  _HGWAUTHKE._serialized_start=596
+  _HGWAUTHKE._serialized_end=735
 # @@protoc_insertion_point(module_scope)

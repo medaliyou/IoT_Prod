@@ -4,16 +4,22 @@ from typing import ClassVar as _ClassVar, Optional as _Optional
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class Message(_message.Message):
-    __slots__ = ["message"]
-    MESSAGE_FIELD_NUMBER: _ClassVar[int]
-    message: str
-    def __init__(self, message: _Optional[str] = ...) -> None: ...
+class AuthKES3Req(_message.Message):
+    __slots__ = ["C2", "M3", "PID", "V"]
+    C2: str
+    C2_FIELD_NUMBER: _ClassVar[int]
+    M3: str
+    M3_FIELD_NUMBER: _ClassVar[int]
+    PID: str
+    PID_FIELD_NUMBER: _ClassVar[int]
+    V: str
+    V_FIELD_NUMBER: _ClassVar[int]
+    def __init__(self, PID: _Optional[str] = ..., M3: _Optional[str] = ..., C2: _Optional[str] = ..., V: _Optional[str] = ...) -> None: ...
 
-class MessageResponse(_message.Message):
-    __slots__ = ["message", "received"]
-    MESSAGE_FIELD_NUMBER: _ClassVar[int]
-    RECEIVED_FIELD_NUMBER: _ClassVar[int]
-    message: str
-    received: bool
-    def __init__(self, message: _Optional[str] = ..., received: bool = ...) -> None: ...
+class AuthKES3Res(_message.Message):
+    __slots__ = ["M4", "V"]
+    M4: str
+    M4_FIELD_NUMBER: _ClassVar[int]
+    V: str
+    V_FIELD_NUMBER: _ClassVar[int]
+    def __init__(self, M4: _Optional[str] = ..., V: _Optional[str] = ...) -> None: ...

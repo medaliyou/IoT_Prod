@@ -97,3 +97,97 @@ class HGWRegister(object):
             generated_dot_HGW__pb2.StoreMURes.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+
+class HGWAuthKEStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.AuthKES1 = channel.unary_unary(
+                '/HGWPackage.HGWAuthKE/AuthKES1',
+                request_serializer=generated_dot_HGW__pb2.AuthKES1Req.SerializeToString,
+                response_deserializer=generated_dot_HGW__pb2.AuthKES4Res.FromString,
+                )
+        self.AuthKES5 = channel.unary_unary(
+                '/HGWPackage.HGWAuthKE/AuthKES5',
+                request_serializer=generated_dot_HGW__pb2.AuthKES6Req.SerializeToString,
+                response_deserializer=generated_dot_HGW__pb2.AuthKES6Res.FromString,
+                )
+
+
+class HGWAuthKEServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def AuthKES1(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AuthKES5(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_HGWAuthKEServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'AuthKES1': grpc.unary_unary_rpc_method_handler(
+                    servicer.AuthKES1,
+                    request_deserializer=generated_dot_HGW__pb2.AuthKES1Req.FromString,
+                    response_serializer=generated_dot_HGW__pb2.AuthKES4Res.SerializeToString,
+            ),
+            'AuthKES5': grpc.unary_unary_rpc_method_handler(
+                    servicer.AuthKES5,
+                    request_deserializer=generated_dot_HGW__pb2.AuthKES6Req.FromString,
+                    response_serializer=generated_dot_HGW__pb2.AuthKES6Res.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'HGWPackage.HGWAuthKE', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class HGWAuthKE(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def AuthKES1(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/HGWPackage.HGWAuthKE/AuthKES1',
+            generated_dot_HGW__pb2.AuthKES1Req.SerializeToString,
+            generated_dot_HGW__pb2.AuthKES4Res.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AuthKES5(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/HGWPackage.HGWAuthKE/AuthKES5',
+            generated_dot_HGW__pb2.AuthKES6Req.SerializeToString,
+            generated_dot_HGW__pb2.AuthKES6Res.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -30,3 +30,34 @@ service HGWRegister{
   rpc StoreSD(StoreSDReq) returns (StoreSDRes) {}
   rpc StoreMU(StoreMUReq) returns (StoreMURes) {}
 }
+
+// HGW Authentication & Key Exchange Phase Service
+
+// { PID MU ,M1 ,C1 ,VMU }
+message AuthKES1Req{
+  string PID = 1;
+  string M1 = 2;
+  string C1 = 3;
+  string V = 4;
+}
+// { M5 ,VGSD }
+message AuthKES4Res{
+  string M5 = 1;
+  string V_G = 2;
+}
+
+// { M5 ,VGSD }
+message AuthKES6Req{
+  string M5 = 1;
+  string PID = 2;
+}
+
+// { status of database operation }
+message AuthKES6Res{
+  string status = 1;
+}
+
+service HGWAuthKE{
+  rpc AuthKES1(AuthKES1Req) returns (AuthKES4Res) {}
+  rpc AuthKES5(AuthKES6Req) returns (AuthKES6Res) {}
+}

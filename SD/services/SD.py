@@ -7,18 +7,16 @@ import asyncio
 import grpc
 from config.config import settings
 
-from generated import HGW_pb2_grpc
-from services.HGWAuthKEService import HGWAuthKEService
-from services.HGWRegisterService import HGWRegisterService
+from generated import SD_pb2_grpc
+from services.SDAuthKEService import SDAuthKEService
 
 
 async def serve() -> None:
     server = grpc.aio.server()
 
-    HGW_pb2_grpc.add_HGWRegisterServicer_to_server(HGWRegisterService(), server)
-    HGW_pb2_grpc.add_HGWAuthKEServicer_to_server(HGWAuthKEService(), server)
+    SD_pb2_grpc.add_SDAuthKEServicer_to_server(SDAuthKEService(), server)
 
-    listen_addr = '[::]:{}'.format(settings.HGW_PORT)
+    listen_addr = '[::]:{}'.format(settings.SD_PORT)
     server.add_insecure_port(listen_addr)
     logger.info("Starting server on {}".format(listen_addr))
     await server.start()

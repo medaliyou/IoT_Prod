@@ -23,9 +23,15 @@ class RAClient(object):
 
     async def init_channel(self):
         try:
-            RA_address = '{}:{}'.format(settings.RA_H, settings.RA_PORT)
-            logger.warning(RA_address)
-            self.channel = grpc.aio.insecure_channel(RA_address)
+            if settings.RA_H is not None:
+                RA_address = '{}:{}'.format(settings.RA_H, settings.RA_PORT)
+                logger.warning(RA_address)
+                self.channel = grpc.aio.insecure_channel(RA_address)
+            else:
+                RA_address = '[::]:{}'.format(settings.RA_PORT)
+                logger.warning(RA_address)
+                self.channel = grpc.aio.insecure_channel(RA_address)
+
         except AttributeError as e:
             RA_address = '[::]:{}'.format(settings.RA_PORT)
             logger.warning(RA_address)

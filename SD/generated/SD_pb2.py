@@ -13,17 +13,17 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12generated/SD.proto\x12\x02SD\"\x1a\n\x07Message\x12\x0f\n\x07message\x18\x01 \x01(\t\"4\n\x0fMessageResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x10\n\x08received\x18\x02 \x01(\x08\x32=\n\x02SD\x12\x37\n\x11GetServerResponse\x12\x0b.SD.Message\x1a\x13.SD.MessageResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12generated/SD.proto\x12\tSDPackage\"=\n\x0b\x41uthKES3Req\x12\x0b\n\x03PID\x18\x01 \x01(\t\x12\n\n\x02M3\x18\x02 \x01(\t\x12\n\n\x02\x43\x32\x18\x03 \x01(\t\x12\t\n\x01V\x18\x04 \x01(\t\"$\n\x0b\x41uthKES3Res\x12\n\n\x02M4\x18\x01 \x01(\t\x12\t\n\x01V\x18\x02 \x01(\t2H\n\x08SDAuthKE\x12<\n\x08\x41uthKES3\x12\x16.SDPackage.AuthKES3Req\x1a\x16.SDPackage.AuthKES3Res\"\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'generated.SD_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _MESSAGE._serialized_start=26
-  _MESSAGE._serialized_end=52
-  _MESSAGERESPONSE._serialized_start=54
-  _MESSAGERESPONSE._serialized_end=106
-  _SD._serialized_start=108
-  _SD._serialized_end=169
+  _AUTHKES3REQ._serialized_start=33
+  _AUTHKES3REQ._serialized_end=94
+  _AUTHKES3RES._serialized_start=96
+  _AUTHKES3RES._serialized_end=132
+  _SDAUTHKE._serialized_start=134
+  _SDAUTHKE._serialized_end=206
 # @@protoc_insertion_point(module_scope)

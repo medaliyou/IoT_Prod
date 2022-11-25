@@ -5,7 +5,7 @@ import grpc
 from generated import SD_pb2 as generated_dot_SD__pb2
 
 
-class SDStub(object):
+class SDAuthKEStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,45 +14,42 @@ class SDStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetServerResponse = channel.unary_unary(
-                '/SD.SD/GetServerResponse',
-                request_serializer=generated_dot_SD__pb2.Message.SerializeToString,
-                response_deserializer=generated_dot_SD__pb2.MessageResponse.FromString,
+        self.AuthKES3 = channel.unary_unary(
+                '/SDPackage.SDAuthKE/AuthKES3',
+                request_serializer=generated_dot_SD__pb2.AuthKES3Req.SerializeToString,
+                response_deserializer=generated_dot_SD__pb2.AuthKES3Res.FromString,
                 )
 
 
-class SDServicer(object):
+class SDAuthKEServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetServerResponse(self, request, context):
-        """A simple RPC.
-
-        Obtains the MessageResponse at a given position.
-        """
+    def AuthKES3(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_SDServicer_to_server(servicer, server):
+def add_SDAuthKEServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetServerResponse': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetServerResponse,
-                    request_deserializer=generated_dot_SD__pb2.Message.FromString,
-                    response_serializer=generated_dot_SD__pb2.MessageResponse.SerializeToString,
+            'AuthKES3': grpc.unary_unary_rpc_method_handler(
+                    servicer.AuthKES3,
+                    request_deserializer=generated_dot_SD__pb2.AuthKES3Req.FromString,
+                    response_serializer=generated_dot_SD__pb2.AuthKES3Res.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'SD.SD', rpc_method_handlers)
+            'SDPackage.SDAuthKE', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class SD(object):
+class SDAuthKE(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetServerResponse(request,
+    def AuthKES3(request,
             target,
             options=(),
             channel_credentials=None,
@@ -62,8 +59,8 @@ class SD(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/SD.SD/GetServerResponse',
-            generated_dot_SD__pb2.Message.SerializeToString,
-            generated_dot_SD__pb2.MessageResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/SDPackage.SDAuthKE/AuthKES3',
+            generated_dot_SD__pb2.AuthKES3Req.SerializeToString,
+            generated_dot_SD__pb2.AuthKES3Res.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -19,9 +19,15 @@ class HGWClient(object):
     async def init_channel(self):
 
         try:
-            HGW_address = '{}:{}'.format(settings.HGW_H, settings.HGW_PORT)
-            logger.warning(HGW_address)
-            self.channel = grpc.aio.insecure_channel(HGW_address)
+            if settings.HGW_H is not None:
+                HGW_address = '{}:{}'.format(settings.HGW_H, settings.HGW_PORT)
+                logger.warning(HGW_address)
+                self.channel = grpc.aio.insecure_channel(HGW_address)
+            else:
+                HGW_address = '[::]:{}'.format(settings.HGW_PORT)
+                logger.warning(HGW_address)
+                self.channel = grpc.aio.insecure_channel(HGW_address)
+
         except AttributeError as e:
             HGW_address = '[::]:{}'.format(settings.HGW_PORT)
             logger.warning(HGW_address)

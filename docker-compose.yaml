@@ -1,0 +1,114 @@
+version: '3'
+services:
+  sd:
+    build: ./SD/
+    image: "${SD_APP}:${SD_TAG}"
+    container_name: sd
+    hostname: sd.local
+    env_file:
+      - .env
+    environment:
+      - DB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo/${MONGO_INITDB_DATABASE}?authSource=${MONGO_INITDB_ROOT_USERNAME}
+      - SD_H=sd
+      - MU_H=mu
+      - RA_H=ra
+      - HGW_H=hgw
+
+    volumes:
+      - ./SD/:/SD
+    ports:
+      - "${SD_RPC_PORT}:${SD_RPC_PORT}"
+      - "${SD_API_PORT}:${SD_API_PORT}"
+
+    depends_on:
+      - hgw
+      - ra
+
+  mu:
+    build: ./MU/
+    image: "${MU_APP}:${MU_TAG}"
+    container_name: mu
+    hostname: mu.local
+    env_file:
+      - .env
+    environment:
+      - DB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo/${MONGO_INITDB_DATABASE}?authSource=${MONGO_INITDB_ROOT_USERNAME}
+      - SD_H=sd
+      - MU_H=mu
+      - RA_H=ra
+      - HGW_H=hgw
+
+    volumes:
+      - ./MU/:/MU
+    ports:
+      - "${MU_RPC_PORT}:${MU_RPC_PORT}"
+      - "${MU_API_PORT}:${MU_API_PORT}"
+
+    depends_on:
+      - hgw
+      - ra
+
+  ra:
+    build: ./RA/
+    image: "${RA_APP}:${RA_TAG}"
+    container_name: ra
+    hostname: ra.local
+    env_file:
+      - .env
+    environment:
+      - DB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo/${MONGO_INITDB_DATABASE}?authSource=${MONGO_INITDB_ROOT_USERNAME}
+      - SD_H=sd
+      - MU_H=mu
+      - RA_H=ra
+      - HGW_H=hgw
+
+    volumes:
+      - ./RA/:/RA
+    ports:
+      - "${RA_RPC_PORT}:${RA_RPC_PORT}"
+    depends_on:
+      - hgw
+
+
+  hgw:
+    build: ./HGW/
+    image: "${HGW_APP}:${HGW_TAG}"
+    container_name: hgw
+    hostname: hgw.local
+    env_file:
+      - .env
+    environment:
+      - DB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo/${MONGO_INITDB_DATABASE}?authSource=${MONGO_INITDB_ROOT_USERNAME}
+      - SD_H=sd
+      - MU_H=mu
+      - RA_H=ra
+      - HGW_H=hgw
+
+    volumes:
+      - ./HGW/:/HGW
+    ports:
+      - "${HGW_RPC_PORT}:${HGW_RPC_PORT}"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    env_file:
+      - ./.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - mongo:/data/db
+    ports:
+      - '27017:27017'
+
+volumes:
+  mongo:
+
+
+networks:
+  default:
+    driver: bridge

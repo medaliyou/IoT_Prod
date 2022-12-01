@@ -18,7 +18,7 @@ async def serve() -> None:
     HGW_pb2_grpc.add_HGWRegisterServicer_to_server(HGWRegisterService(), server)
     HGW_pb2_grpc.add_HGWAuthKEServicer_to_server(HGWAuthKEService(), server)
 
-    listen_addr = '[::]:{}'.format(settings.HGW_PORT)
+    listen_addr = '[::]:{}'.format(settings.HGW_RPC_PORT)
     server.add_insecure_port(listen_addr)
     logger.info("Starting server on {}".format(listen_addr))
     await server.start()

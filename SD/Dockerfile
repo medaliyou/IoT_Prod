@@ -10,4 +10,6 @@ RUN ls -laht /SD
 ENV PYTHONPATH "${PYTHONPATH}:/SD"
 
 EXPOSE 8002
-CMD python3 /SD/core/SD.py
+EXPOSE 30002
+
+CMD bash start.sh

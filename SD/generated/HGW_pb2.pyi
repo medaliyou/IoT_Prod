@@ -25,12 +25,12 @@ class AuthKES4Res(_message.Message):
     def __init__(self, M5: _Optional[str] = ..., V_G: _Optional[str] = ...) -> None: ...
 
 class AuthKES6Req(_message.Message):
-    __slots__ = ["M5", "PID"]
-    M5: str
-    M5_FIELD_NUMBER: _ClassVar[int]
+    __slots__ = ["M6", "PID"]
+    M6: str
+    M6_FIELD_NUMBER: _ClassVar[int]
     PID: str
     PID_FIELD_NUMBER: _ClassVar[int]
-    def __init__(self, M5: _Optional[str] = ..., PID: _Optional[str] = ...) -> None: ...
+    def __init__(self, M6: _Optional[str] = ..., PID: _Optional[str] = ...) -> None: ...
 
 class AuthKES6Res(_message.Message):
     __slots__ = ["status"]

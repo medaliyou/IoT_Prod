@@ -3,7 +3,7 @@ import random
 from binascii import hexlify, unhexlify
 from typing import Union
 
-from .base_logger import logger
+from common.base_logger import logger
 
 
 class X:
@@ -286,19 +286,19 @@ def X_test():
     # print("XOR " + "#" * 100)
     # K_RA = X(h="c808f256795fe135179584a23d5e4d26")
     # r_RA = X(h="609b8d448cecc8b3351d906b6e9230c3")
-    # PID_MU = X(h="504a2765e8fd4e2d7ffff4f9c8e5c22acebaae9fc5a1b4bde9a80eedce981eac")
+    # PID_SD = X(h="504a2765e8fd4e2d7ffff4f9c8e5c22acebaae9fc5a1b4bde9a80eedce981eac")
     # # print(x1.b)
     # # print(x2.b)
-    # print(PID_MU)
+    # print(PID_SD)
     # print(K_RA)
     # print(r_RA)
     #
-    # x_x = PID_MU + K_RA + r_RA
+    # x_x = PID_SD + K_RA + r_RA
     #
     # # print(x_x)
     # K_G_MU = XOps.hash(x_x)
     # print("K_G_MU",K_G_MU)
-    # x_x = PID_MU + K_G_MU
+    # x_x = PID_SD + K_G_MU
     # # print(x_x)
     # RID_MU = XOps.hash(x_x)
     # print('RID_MU',RID_MU)
@@ -310,12 +310,13 @@ def X_test():
     # print("HPW_MU",HPW_MU)
     # print("XOR " + "#" * 100)
     print("-"*100)
-    IDMU = X(h="d45dd5f70f97e23d2daea562ac1975b5")
-    RNMU = X(h="b9af52e602cb0d73e5d9f10a0f5f7a10")
-    IDG = X(h="45b5a401ab32f1d2f5c205f7597bf9a9")
-    RNG = X(h="139cb5d989ac69738742b3e3ba1bbc96")
-    hashed = XOps.hash(IDMU+RNMU) + XOps.hash(IDG+RNG)
-    print(hashed)
+    ID=X(h="04f8996da763b7a969b1028ee3007569")
+    PW=X(h="d74ff0ee8da3b9806b18c877dbf29bbd")
+    A1=X(h="1bb640e01778a764d0b41b90391c419646628754ebbfa37a2a2031e356d53046")
+    print("ID + PW", ID + PW)
+    print("XOps.hash(ID + PW)", XOps.hash(ID + PW))
+    r = A1 ^ XOps.hash(ID + PW)
+    print(r)
     print("-"*100)
 
 if __name__ == '__main__':

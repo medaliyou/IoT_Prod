@@ -10,4 +10,6 @@ RUN ls -laht /MU
 ENV PYTHONPATH "${PYTHONPATH}:/MU"
 
 EXPOSE 8003
-CMD python3 /MU/core/MU.py
+EXPOSE 30003
+
+CMD bash start.sh

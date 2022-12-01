@@ -24,16 +24,16 @@ class RAClient(object):
     async def init_channel(self):
         try:
             if settings.RA_H is not None:
-                RA_address = '{}:{}'.format(settings.RA_H, settings.RA_PORT)
+                RA_address = '{}:{}'.format(settings.RA_H, settings.RA_RPC_PORT)
                 logger.warning(RA_address)
                 self.channel = grpc.aio.insecure_channel(RA_address)
             else:
-                RA_address = '[::]:{}'.format(settings.RA_PORT)
+                RA_address = '[::]:{}'.format(settings.RA_RPC_PORT)
                 logger.warning(RA_address)
                 self.channel = grpc.aio.insecure_channel(RA_address)
 
         except AttributeError as e:
-            RA_address = '[::]:{}'.format(settings.RA_PORT)
+            RA_address = '[::]:{}'.format(settings.RA_RPC_PORT)
             logger.warning(RA_address)
             self.channel = grpc.aio.insecure_channel(RA_address)
 
@@ -66,10 +66,10 @@ class RAClient(object):
             message = rpc_error
             logger.info("Client received: {}".format(message))
 
-    async def RegisterSD(self, ID_SD, PID_SD, r_SD) -> RA_pb2.RegSDRes:
+    async def RegisterSD(self, ID_MU, PID_MU, r_MU) -> RA_pb2.RegSDRes:
         # await self.__check_and_create_channel()
         try:
-            request = RA_pb2.RegSDReq(ID=ID_SD, PID=PID_SD, r=r_SD)
+            request = RA_pb2.RegSDReq(ID=ID_MU, PID=PID_MU, r=r_MU)
             response = await self.register_stub.RegisterSD(request, wait_for_ready=True)
             return response
 

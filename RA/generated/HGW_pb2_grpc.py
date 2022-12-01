@@ -113,8 +113,8 @@ class HGWAuthKEStub(object):
                 request_serializer=generated_dot_HGW__pb2.AuthKES1Req.SerializeToString,
                 response_deserializer=generated_dot_HGW__pb2.AuthKES4Res.FromString,
                 )
-        self.AuthKES5 = channel.unary_unary(
-                '/HGWPackage.HGWAuthKE/AuthKES5',
+        self.AuthKES6 = channel.unary_unary(
+                '/HGWPackage.HGWAuthKE/AuthKES6',
                 request_serializer=generated_dot_HGW__pb2.AuthKES6Req.SerializeToString,
                 response_deserializer=generated_dot_HGW__pb2.AuthKES6Res.FromString,
                 )
@@ -129,7 +129,7 @@ class HGWAuthKEServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def AuthKES5(self, request, context):
+    def AuthKES6(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -143,8 +143,8 @@ def add_HGWAuthKEServicer_to_server(servicer, server):
                     request_deserializer=generated_dot_HGW__pb2.AuthKES1Req.FromString,
                     response_serializer=generated_dot_HGW__pb2.AuthKES4Res.SerializeToString,
             ),
-            'AuthKES5': grpc.unary_unary_rpc_method_handler(
-                    servicer.AuthKES5,
+            'AuthKES6': grpc.unary_unary_rpc_method_handler(
+                    servicer.AuthKES6,
                     request_deserializer=generated_dot_HGW__pb2.AuthKES6Req.FromString,
                     response_serializer=generated_dot_HGW__pb2.AuthKES6Res.SerializeToString,
             ),
@@ -176,7 +176,7 @@ class HGWAuthKE(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def AuthKES5(request,
+    def AuthKES6(request,
             target,
             options=(),
             channel_credentials=None,
@@ -186,7 +186,7 @@ class HGWAuthKE(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/HGWPackage.HGWAuthKE/AuthKES5',
+        return grpc.experimental.unary_unary(request, target, '/HGWPackage.HGWAuthKE/AuthKES6',
             generated_dot_HGW__pb2.AuthKES6Req.SerializeToString,
             generated_dot_HGW__pb2.AuthKES6Res.FromString,
             options, channel_credentials,

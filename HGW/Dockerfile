@@ -10,4 +10,6 @@ RUN ls -laht /HGW
 ENV PYTHONPATH "${PYTHONPATH}:/HGW"
 
 EXPOSE 8001
-CMD python3 /HGW/services/HGW.py
+EXPOSE 30001
+
+CMD bash start.sh

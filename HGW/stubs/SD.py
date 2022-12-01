@@ -19,11 +19,18 @@ class SDClient(object):
 
     async def init_channel(self):
         try:
-            SD_address = '{}:{}'.format(settings.SD_H, settings.SD_PORT)
-            logger.warning(SD_address)
-            self.channel = grpc.aio.insecure_channel(SD_address)
+            if settings.SD_H is not None:
+
+                SD_address = '{}:{}'.format(settings.SD_H, settings.SD_RPC_PORT)
+                logger.warning(SD_address)
+                self.channel = grpc.aio.insecure_channel(SD_address)
+            else:
+                SD_address = '[::]:{}'.format(settings.SD_RPC_PORT)
+                logger.warning(SD_address)
+                self.channel = grpc.aio.insecure_channel(SD_address)
+
         except AttributeError as e:
-            SD_address = '[::]:{}'.format(settings.SD_PORT)
+            SD_address = '[::]:{}'.format(settings.SD_RPC_PORT)
             logger.warning(SD_address)
             self.channel = grpc.aio.insecure_channel(SD_address)
 

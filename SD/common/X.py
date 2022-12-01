@@ -3,7 +3,7 @@ import random
 from binascii import hexlify, unhexlify
 from typing import Union
 
-from .base_logger import logger
+from common.base_logger import logger
 
 
 class X:
@@ -106,6 +106,7 @@ class X:
     # def b(self):
     #     print("getter_b")
     #     return self.b
+
 
     def __str__(self):
         # return "\nb[{}]={}\nh[{}]={}".format(self.s, self.b, len(self.h), self.h)
@@ -238,85 +239,9 @@ class XOps:
 
 
 def X_test():
-    # print("Constructor " + "#" * 40)
-    #
-    # x1 = X(b=random.getrandbits(128).to_bytes(16, 'little'))
-    # x2 = X(b=None, s=16)
-    # # x3 = X(random.getrandbits(96).to_bytes(12, 'little'))
-    # x3 = X()
-    # x4 = X(h=b"8fa2de055359da51a3ab847a893a73d9")
-    # x5 = X(b=b'\x8f\xa2\xde\x05SY\xdaQ\xa3\xab\x84z\x89:s\xd9')
-    # x6 = X(h="8fa2de055359da51a3ab847a893a73d9")
-
-    # print(x1)
-    # print(x2)
-    # print(x3)
-    # print(x4)
-    # print(x5)
-    # print(x4 == x5)
-    # print(x6 == x5)
-
-    # Test concatenation
-    # print("SUM 2 " + "#" * 40)
-    #
-    # print(x1 + x2)
-    # print(x2 + x1)
-    # print(x1 + x3)
-    # print(x3 + x1)
-    # print(x2 + x3)
-    # print(x3 + x2)
-
-    # print("SUM 3" + "#" * 40)
-    # x_sum = x1 + x2 + x3
-    # print(x_sum)
-    # print("HASH " + "#" * 40)
-    #
-    # x_h = XOps.hash(x_sum)
-    # print(x_h)
-    # print("EXTRACT " + "#" * 40)
-
-    # Extract x1 and x2 from x_c = x1 + x2
-    # x_c = x1 + x2
-    # print(x_c)
-    # _x1 = X(x_c.b[:16])
-    # _x2 = X(x_c.b[16:])
-    # print(x1 == _x1)
-    # print(x2 == _x2)
-
-    # print("XOR " + "#" * 100)
-    # K_RA = X(h="c808f256795fe135179584a23d5e4d26")
-    # r_RA = X(h="609b8d448cecc8b3351d906b6e9230c3")
-    # PID_MU = X(h="504a2765e8fd4e2d7ffff4f9c8e5c22acebaae9fc5a1b4bde9a80eedce981eac")
-    # # print(x1.b)
-    # # print(x2.b)
-    # print(PID_MU)
-    # print(K_RA)
-    # print(r_RA)
-    #
-    # x_x = PID_MU + K_RA + r_RA
-    #
-    # # print(x_x)
-    # K_G_MU = XOps.hash(x_x)
-    # print("K_G_MU",K_G_MU)
-    # x_x = PID_MU + K_G_MU
-    # # print(x_x)
-    # RID_MU = XOps.hash(x_x)
-    # print('RID_MU',RID_MU)
-    #
-    # print("XOR " + "#" * 100)
-    # r_MU = X(h="40b7c8a76a4bc1d56f3c87e9971358a1")
-    # PW_MU = X(h="b5366826197b73c94da9fd822b10dffc")
-    # HPW_MU = XOps.hash(PW_MU + r_MU)
-    # print("HPW_MU",HPW_MU)
-    # print("XOR " + "#" * 100)
-    print("-"*100)
-    IDMU = X(h="d45dd5f70f97e23d2daea562ac1975b5")
-    RNMU = X(h="b9af52e602cb0d73e5d9f10a0f5f7a10")
-    IDG = X(h="45b5a401ab32f1d2f5c205f7597bf9a9")
-    RNG = X(h="139cb5d989ac69738742b3e3ba1bbc96")
-    hashed = XOps.hash(IDMU+RNMU) + XOps.hash(IDG+RNG)
-    print(hashed)
-    print("-"*100)
+    a = X(h="b639b614934fc4f2e37e217b23870d9b52043c0e652c9f2adb638999d3de5482")
+    print(a)
+    print(a.__dict__)
 
 if __name__ == '__main__':
     X_test()

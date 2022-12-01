@@ -16,7 +16,7 @@ async def serve() -> None:
     RA_pb2_grpc.add_RAInitServicer_to_server(RAInitService(), server)
     RA_pb2_grpc.add_RARegisterServicer_to_server(RARegisterService(), server)
 
-    listen_addr = '[::]:{}'.format(settings.RA_PORT)
+    listen_addr = '[::]:{}'.format(settings.RA_RPC_PORT)
     logger.info("Starting server on {}".format(listen_addr))
 
     server.add_insecure_port(listen_addr)

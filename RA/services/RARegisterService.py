@@ -13,14 +13,14 @@ class RARegisterService(RA_pb2_grpc.RARegisterServicer):
     async def RegisterSD(self, request: RA_pb2.RegSDReq, context: grpc.aio.ServicerContext) -> RA_pb2.RegSDRes:
         _HGW_Client = await cHGWClient()
         try:
-            _K_G_SD = RA().registerSD(ID=request.ID, PID=request.PID, r=request.r)
+            _K_G_MU = RA().registerSD(ID=request.ID, PID=request.PID, r=request.r)
             # Save it to HGW
-            _response = await _HGW_Client.StoreSD(ID=request.ID, PID=request.PID, r=request.r, K_G=_K_G_SD.h)
+            _response = await _HGW_Client.StoreSD(ID=request.ID, PID=request.PID, r=request.r, K_G=_K_G_MU.h)
             logger.info("_response : {}".format(_response))
 
             if _response is not None:
                 logger.info("registerSD : {}".format(_response.status))
-                return RA_pb2.RegSDRes(K_G=_K_G_SD.h)
+                return RA_pb2.RegSDRes(K_G=_K_G_MU.h)
             else:
                 logger.warning("StoreSD Failure")
 

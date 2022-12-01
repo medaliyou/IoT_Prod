@@ -16,7 +16,7 @@ async def serve() -> None:
 
     SD_pb2_grpc.add_SDAuthKEServicer_to_server(SDAuthKEService(), server)
 
-    listen_addr = '[::]:{}'.format(settings.SD_PORT)
+    listen_addr = '[::]:{}'.format(settings.SD_RPC_PORT)
     server.add_insecure_port(listen_addr)
     logger.info("Starting server on {}".format(listen_addr))
     await server.start()

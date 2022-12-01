@@ -19,10 +19,15 @@ class Settings(BaseSettings):
     RA_H: Optional[str]
     HGW_H: Optional[str]
 
-    SD_PORT: int
-    MU_PORT: int
-    RA_PORT: int
-    HGW_PORT: int
+    SD_RPC_PORT: int
+    MU_RPC_PORT: int
+    RA_RPC_PORT: int
+    HGW_RPC_PORT: int
+
+    SD_API_PORT: int
+    MU_API_PORT: int
+    RA_API_PORT: int
+    HGW_API_PORT: int
 
     # JWT_PUBLIC_KEY: str
     # JWT_PRIVATE_KEY: str

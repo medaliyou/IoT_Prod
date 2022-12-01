@@ -3,7 +3,7 @@ import random
 from binascii import hexlify, unhexlify
 from typing import Union
 
-from .base_logger import logger
+from common.base_logger import logger
 
 
 class X:

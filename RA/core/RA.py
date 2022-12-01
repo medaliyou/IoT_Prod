@@ -24,11 +24,11 @@ class RA(metaclass=SingletonMeta):
         if self.r_RA is None:
             self.r_RA = X(s=X.S_RANDOM_NUMBER)  # 16 bytes
 
-    def __compute_K_G_SD(self, PID_SD):
-        assert isinstance(PID_SD, X)
+    def __compute_K_G_MU(self, PID_MU):
+        assert isinstance(PID_MU, X)
         # Computes
         # KGSD = h( PIDSD ||K RA ||r RA )
-        return XOps.hash(PID_SD + self.K_RA + self.r_RA)
+        return XOps.hash(PID_MU + self.K_RA + self.r_RA)
 
     def __compute_K_G_MU(self, PID_MU):
         assert isinstance(PID_MU, X)
@@ -43,12 +43,12 @@ class RA(metaclass=SingletonMeta):
         return XOps.hash(PID_MU + K_G_MU)
 
     def registerSD(self, ID, PID, r) -> X:
-        _PID_SD = X(h=PID)
-        _r_SD = X(h=r)
-        _ID_SD = X(h=ID)
-        _K_G_SD = self.__compute_K_G_SD(_PID_SD)
-        logger.info("K_G_SD={}".format(_K_G_SD))
-        return _K_G_SD
+        _PID_MU = X(h=PID)
+        _r_MU = X(h=r)
+        _ID_MU = X(h=ID)
+        _K_G_MU = self.__compute_K_G_MU(_PID_MU)
+        logger.info("K_G_MU={}".format(_K_G_MU))
+        return _K_G_MU
 
     def registerMU(self, ID, PID) -> (X, X):
         _PID_MU = X(h=PID)

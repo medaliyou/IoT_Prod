@@ -1,13 +1,15 @@
 import grpc
 from generated import HGW_pb2_grpc, HGW_pb2
-from database.MU import (
-    add_MU, retrieve_MU_by_PID,
-)
+
+
 from database.SD import (
     add_SD,
     retrieve_SD_by_PID
 )
-
+from database.MU import (
+    add_MU,
+    retrieve_MU_by_PID
+)
 from common.base_logger import logger
 
 
@@ -17,7 +19,7 @@ class HGWRegisterService(HGW_pb2_grpc.HGWRegisterServicer):
         try:
             # search for existing SD with same ID
             existing_SD = await retrieve_SD_by_PID(request.PID)
-            logger.warning("existing_SD = {}".format(existing_SD))
+            logger.warning("existing_MU = {}".format(existing_SD))
 
             if existing_SD is not None:
                 return HGW_pb2.StoreSDRes(status="EXISTING")
@@ -31,7 +33,7 @@ class HGWRegisterService(HGW_pb2_grpc.HGWRegisterServicer):
 
                 new_SD = await add_SD(_SD)
                 if new_SD:
-                    logger.info("Added SD successfully ID_SD={}".format(request.ID))
+                    logger.info("Added SD successfully ID_MU={}".format(request.ID))
                     return HGW_pb2.StoreSDRes(status="OK")
                 else:
                     return HGW_pb2.StoreSDRes(status="ERROR")

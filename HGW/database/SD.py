@@ -36,14 +36,14 @@ async def retrieve_SD(id: str) -> dict:
         return SD_helper(_SD)
 
 
-# Retrieve a SD with a matching PID_SD
+# Retrieve a SD with a matching PID_MU
 async def retrieve_SD_by_PID(PID_SD: str) -> dict:
     _SD = await SD_collection.find_one({"PID": PID_SD})
     if _SD:
         return SD_helper(_SD)
 
 
-# Retrieve a SD with a matching ID_SD
+# Retrieve a SD with a matching ID_MU
 async def retrieve_SD_by_ID(ID_SD: str) -> dict:
     _SD = await SD_collection.find_one({"ID": ID_SD})
     if _SD:

@@ -48,7 +48,7 @@ message AuthKES4Res{
 
 // { M5 ,VGSD }
 message AuthKES6Req{
-  string M5 = 1;
+  string M6 = 1;
   string PID = 2;
 }
 
@@ -59,6 +59,6 @@ message AuthKES6Res{
 
 service HGWAuthKE{
   rpc AuthKES1(AuthKES1Req) returns (AuthKES4Res) {}
-  rpc AuthKES5(AuthKES6Req) returns (AuthKES6Res) {}
+  rpc AuthKES6(AuthKES6Req) returns (AuthKES6Res) {}
 
 }

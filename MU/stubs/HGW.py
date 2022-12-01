@@ -21,16 +21,16 @@ class HGWClient(object):
 
         try:
             if settings.HGW_H is not None:
-                HGW_address = '{}:{}'.format(settings.HGW_H, settings.HGW_PORT)
+                HGW_address = '{}:{}'.format(settings.HGW_H, settings.HGW_RPC_PORT)
                 logger.warning(HGW_address)
                 self.channel = grpc.aio.insecure_channel(HGW_address)
             else:
-                HGW_address = '[::]:{}'.format(settings.HGW_PORT)
+                HGW_address = '[::]:{}'.format(settings.HGW_RPC_PORT)
                 logger.warning(HGW_address)
                 self.channel = grpc.aio.insecure_channel(HGW_address)
 
         except AttributeError as e:
-            HGW_address = '[::]:{}'.format(settings.HGW_PORT)
+            HGW_address = '[::]:{}'.format(settings.HGW_RPC_PORT)
             logger.warning(HGW_address)
             self.channel = grpc.aio.insecure_channel(HGW_address)
 
@@ -97,8 +97,7 @@ class HGWClient(object):
         except grpc.aio.AioRpcError as rpc_error:
             # assert rpc_error.code() == grpc.StatusCode.UNAVAILABLE
             message = rpc_error
-            logger.info("Client received: {}".format(message))
-            return response
+            logger.error("Client received: {}".format(message))
         except Exception as e:
             logger.error(e)
 

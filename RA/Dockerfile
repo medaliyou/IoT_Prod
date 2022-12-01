@@ -10,4 +10,6 @@ RUN ls -laht /RA
 ENV PYTHONPATH "${PYTHONPATH}:/RA"
 
 EXPOSE 8000
-CMD python3 /RA/services/RA.py
+EXPOSE 30000
+
+CMD bash start.sh

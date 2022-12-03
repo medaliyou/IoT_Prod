@@ -2,6 +2,8 @@ import asyncio
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from config.config import settings
 from api.SD import router as sd_router
 from services.SD import serve
@@ -21,12 +23,34 @@ tags_metadata = [
 
     },
     {
+        "name": "DeleteSD",
+        "description": "Delete **SD** object.",
+
+    },
+    {
+        "name": "DeleteSDs",
+        "description": "Delete All **SD** objects.",
+
+    },
+    {
         "name": "health",
         "description": "Health Check."
     },
 ]
 
 app = FastAPI(openapi_tags=tags_metadata)
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(sd_router, prefix="/SD")
 

@@ -1,4 +1,5 @@
 from bson.objectid import ObjectId
+from pymongo.results import DeleteResult
 
 from common.base_logger import logger
 from database.database import SD_Obj_Collection
@@ -105,3 +106,18 @@ async def delete_SD(id: str):
     if _SD:
         await SD_Obj_Collection.delete_one({"_id": ObjectId(id)})
         return True
+
+
+# Delete a SD from the database
+async def delete_SD_by_PID(pid: str):
+    _SD = await SD_Obj_Collection.find_one({"PID_SD": pid})
+    if _SD:
+        await SD_Obj_Collection.delete_one({"PID_SD": pid})
+        return True
+
+
+# Delete a SD from the database
+async def delete_SDs():
+    del_res: DeleteResult = await SD_Obj_Collection.delete_many({})
+    logger.warning("Deleted Count {}".format(del_res.deleted_count))
+    return del_res.raw_result

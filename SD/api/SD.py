@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 
 from common.base_logger import logger
 from core.context import SD_Context, Context
@@ -7,7 +8,9 @@ from database.SD_Obj import (
     add_SD,
     retrieve_SDs,
     retrieve_SD_by_PID,
-    retrieve_SD_by_TAG
+    retrieve_SD_by_TAG,
+    delete_SDs,
+    delete_SD_by_PID
 )
 
 router = APIRouter()
@@ -20,9 +23,13 @@ async def GetSDs():
     return {"data": _SDs}
 
 
+class SmartDevice(BaseModel):
+    TAG_SD: str
+
+
 @router.post("/", tags=["CreateSD"])
-async def CreateSD(TAG_SD: str):
-    _existing_SD = await retrieve_SD_by_TAG(TAG_SD)
+async def CreateSD(sd: SmartDevice):
+    _existing_SD = await retrieve_SD_by_TAG(sd.TAG_SD)
     if _existing_SD is not None:
         raise HTTPException(
             status_code=409,  # 409 Conflict
@@ -30,7 +37,7 @@ async def CreateSD(TAG_SD: str):
             headers={"X-Error": "ID exists"},
         )
 
-    _SD = SD(TAG_SD)
+    _SD = SD(sd.TAG_SD)
     await _SD.init_phase()
     await _SD.register_phase()
     logger.info(_SD.export_dict())
@@ -88,3 +95,18 @@ async def LoadSD(TAG: str):
     logger.info(Context().ctx.PID_SD)
 
     return _saved_SD
+
+
+@router.delete("/PID/{pid}", tags=["DeleteSD"])
+async def deleteSD_by_PID(pid: str):
+    result = await delete_SD_by_PID(pid)
+    logger.info("Deleting SD PID={}, RESULT={}".format(pid, result))
+    return result
+
+
+@router.delete("/All", tags=["DeleteSDs"])
+async def deleteAllSDs():
+    logger.info("Deleting All SDs")
+    deleted_count = await delete_SDs()
+    logger.info(deleted_count)
+    return deleted_count

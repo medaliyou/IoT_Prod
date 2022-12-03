@@ -21,6 +21,12 @@ class Credentials(BaseModel):
     PW: str
 
 
+class PasswordUpdate(BaseModel):
+    ID: str
+    PW_old: str
+    PW_new: str
+
+
 MU_Ctx: MU = None
 
 
@@ -66,7 +72,7 @@ async def logout():
     global MU_Ctx
     if MU_Ctx is None:
         raise HTTPException(
-            status_code=404,  # 404 - Conflict
+            status_code=205,  # 205 - no content, refresh
             detail="Already logged out",
             headers={"X-Error": "You are not logged in"},
         )
@@ -117,3 +123,34 @@ async def load_SD(PID_SD: str):
         logger.error(e)
         return ErrorModel(1, response)
 
+
+@router.post("/update_password", tags=["update_password"])
+async def update_password(pu: PasswordUpdate):
+    logger.info(pu)
+
+    global MU_Ctx
+    if MU_Ctx is None:
+        raise HTTPException(
+            status_code=403,  # 403 - Authorized
+            detail="Not Authorized! Are you Logged in ?",
+            headers={"X-Error": "Not Authorized"},
+        )
+
+    response: ErrorModel = await MU_Ctx.password_update(pu.ID, pu.PW_old, pu.PW_new)
+    if response.err_no == 1:
+        raise HTTPException(
+            status_code=501,  # 501 - UnAuthorized
+            detail="Incorrect Credentials",
+        )
+    if response.err_no == 2:
+        raise HTTPException(
+            status_code=501,  # 501 - UnAuthorized
+            detail="Updating password failed",
+        )
+    if response.err_no == 3:
+        raise HTTPException(
+            status_code=501,  # 501 - UnAuthorized
+            detail="Something wrong",
+        )
+    else:
+        return response

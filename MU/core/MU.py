@@ -56,7 +56,7 @@ class MU:
         self.SK: X = None
 
     def export_dict(self):
-        _dict = self.__dict__
+        _dict = self.__dict__.copy()
         _masked_keys = ["TAG_MU"]
 
         # print("*" * 100)
@@ -364,12 +364,97 @@ class MU:
 
             else:
                 logger.warning("Updated MU Context failed")
-
                 return ErrorModel(1, str(response) + "\n Updated MU Context failed")
 
         except Exception as e:
             logger.error(e)
             return ErrorModel(1, str(e))
+
+    async def password_update(self, ID, PW_old, PW_new):
+        try:
+            _ID_MU, _PW_MU_old = parse_credentials(ID, PW_old)
+            # Computes
+            # r MU = A1 ⊕ h( ID MU || PWMU old )
+            _r_MU = self.A1 ^ XOps.hash(_ID_MU + _PW_MU_old)
+
+            # HPWMU = h( PWMU old|| rMU )
+            _HPW_MU = XOps.hash(_PW_MU_old + _r_MU)
+
+            # A2∗ = h( ID MU || PWMU old || rMU || HPWMU )
+            _A2_star = XOps.hash(_ID_MU + _PW_MU_old + _r_MU + _HPW_MU)
+
+            # Checks A2 * = A2 ?
+
+            logger.warning(
+                "Checks A2∗ == A2"
+            )
+            logger.warning(
+                "A2∗ = {}".format(_A2_star.h)
+            )
+            logger.warning(
+                "A2 = {}".format(self.A2.h)
+            )
+
+            if _A2_star != self.A2:
+                # Verification not successful
+                logger.warning("A2* != A2")
+                return ErrorModel(1, "Password Update failed! [A2* != A2]")
+
+            _ID_MU, _PW_MU_new = parse_credentials(ID, PW_new)
+
+            # RID MU = A3 ⊕ h(r MU || HPWMU )
+            _RID_MU = self.A3 ^ XOps.hash(_r_MU + _HPW_MU)
+
+            # K MUG = A4 ⊕ h( RID MU || HPWMU )
+            _K_G_MU = self.A4 ^ XOps.hash(_RID_MU + _HPW_MU)
+
+            # HPWMU∗∗ = h ( PWMU new ||r MU )
+            _HPW_MU_star_star = XOps.hash(_PW_MU_new + _r_MU)
+            # A1∗∗ = r MU ⊕ h( ID MU || PWMU new )
+            _A1_star_star = _r_MU ^ XOps.hash(self.ID_MU + _PW_MU_new)
+            # A2∗∗ = h( ID MU || || PWMU new || r MU || HPWMU∗∗)
+            _A2_star_star = XOps.hash(self.ID_MU + _PW_MU_new + _r_MU + _HPW_MU_star_star)
+
+            # A3** = RID MU ⊕ h(r MU || HPWMU∗∗)
+            _A3_star_star = _RID_MU ^ XOps.hash(_r_MU + _HPW_MU_star_star)
+
+            # A4** = K MUG ⊕ h( RID MU || HPWMU** )
+            _A4_star_star = _K_G_MU ^ XOps.hash(_RID_MU + _HPW_MU_star_star)
+
+            # Replaces { A1 , A2 , A3 , A4 , PID MU } with { A1∗∗ , A2∗∗ , A3∗∗ , A4∗∗ , PID MU }
+            new_registration_state = {
+                "A1": _A1_star_star.h,
+                "A2": _A2_star_star.h,
+                "A3": _A3_star_star.h,
+                "A4": _A4_star_star.h,
+
+            }
+            self.A1 = _A1_star_star
+            self.A2 = _A2_star_star
+            self.A3 = _A3_star_star
+            self.A4 = _A4_star_star
+            self.HPW_MU = _HPW_MU_star_star
+            self.PW_MU = _PW_MU_new
+
+            logger.warning("Updated Password Successfully")
+            logger.warning("NEW_PASSWORD={}".format(_PW_MU_new))
+
+            # Save new context
+            logger.info(self.export_dict())
+
+            result = await update_MU_by_PID(self.PID_MU, self.export_dict())
+
+            if result:
+                logger.warning("Updated MU Context success")
+                return ErrorModel(0, "Updated MU Context success")
+
+            else:
+                logger.warning("Updated MU Context failed")
+                return ErrorModel(2, "Updated MU Context failed")
+
+        except Exception as e:
+            logger.error(e)
+            return ErrorModel(3, str(e))
 
 
 async def main(MU_Instance: MU):

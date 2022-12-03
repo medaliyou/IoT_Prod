@@ -1,4 +1,6 @@
 from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+
 from common.base_logger import logger
 from core.MU import MU, parse_credentials
 from database.MU_Obj import (
@@ -18,21 +20,27 @@ async def GetMUs():
     return {"data": _MUs}
 
 
+class Register(BaseModel):
+    TAG: str
+    ID: str
+    PW: str
+
+
 @router.post("/", tags=["CreateMU"])
-async def CreateMU(TAG_MU: str, ID_MU:str, PW_MU:str):
+async def CreateMU(reg: Register):
     # Make sure this ID is unique
-    _ID_MU, _PW_MU = parse_credentials(ID_MU, PW_MU)
+    _ID_MU, _PW_MU = parse_credentials(reg.ID, reg.PW)
 
     _existing_MU = await retrieve_MU_by_ID(_ID_MU.h)
     if _existing_MU is not None:
         raise HTTPException(
-            status_code=409, # 409 Conflict
+            status_code=409,  # 409 Conflict
             detail="ID is already registered",
             headers={"X-Error": "ID exists"},
         )
 
-    _MU = MU(TAG_MU)
-    await _MU.init_phase(ID_MU, PW_MU)
+    _MU = MU(reg.TAG)
+    await _MU.init_phase(reg.ID, reg.PW)
     await _MU.register_phase()
     logger.info(_MU.export_dict())
 

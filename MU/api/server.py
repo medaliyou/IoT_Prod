@@ -1,5 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from common.base_logger import logger
 from config.config import settings
 from api.MU import router as mu_router
@@ -32,12 +34,30 @@ tags_metadata = [
         "description": "Authenticate **MU** to given **SD** device.",
     },
     {
+        "name": "update_password",
+        "description": "Password update for **MU** on the Mobile Device"
+    },
+    {
         "name": "health",
         "description": "Health Check."
     },
 ]
 
 app = FastAPI(openapi_tags=tags_metadata)
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 app.include_router(mu_router, prefix="/MU")
 app.include_router(muc_router, prefix="/app/v1")

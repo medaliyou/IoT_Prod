@@ -2,6 +2,7 @@ import asyncio
 from common.Defines import S_RANDOM_NUMBER, S_KEY, ErrorModel
 from common.X import X, XOps
 from common.base_logger import logger
+from database.SD_Obj import update_SD_by_PID
 from stubs.RA import cRAClient
 
 
@@ -34,12 +35,13 @@ class SD(object):
         self.V_SD: X = None
 
     def export_dict(self):
-        _dict = self.__dict__
+        _dict = self.__dict__.copy()
+        logger.warning(_dict is self.__dict__)
         _masked_keys = ["TAG_SD"]
         # logger.info(_dict)
 
         try:
-            for k in _dict:
+            for k in self.__dict__:
                 # logger.info("{}={}".format(k, _dict[k]))
                 if k not in _masked_keys:
                     if isinstance(_dict[k], X):
@@ -176,6 +178,14 @@ class SD(object):
             self.V_SD = XOps.hash(
                 self.PID_MU + self.PID_SD + _M2_star + XOps.hash(self.ID_SD + self.RN_SD) + self.K_G_SD)
 
+            # Save SD context and its Session Key
+            logger.warning(self.__dict__)
+            _dict = self.export_dict()
+            logger.warning(_dict)
+
+            # result = await update_SD_by_PID(self.PID_SD, _dict)
+            logger.warning(self.__dict__)
+            # logger.warning("Updating SD context {}".format(result))
             authentication_state = {
                 "M4": self.M4,
                 "V": self.V_SD,

@@ -179,13 +179,12 @@ class SD(object):
                 self.PID_MU + self.PID_SD + _M2_star + XOps.hash(self.ID_SD + self.RN_SD) + self.K_G_SD)
 
             # Save SD context and its Session Key
-            logger.warning(self.__dict__)
             _dict = self.export_dict()
             logger.warning(_dict)
 
-            # result = await update_SD_by_PID(self.PID_SD, _dict)
+            result = await update_SD_by_PID(self.PID_SD.h, _dict)
             logger.warning(self.__dict__)
-            # logger.warning("Updating SD context {}".format(result))
+            logger.warning("Updating SD context {}".format(result))
             authentication_state = {
                 "M4": self.M4,
                 "V": self.V_SD,

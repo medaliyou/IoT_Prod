@@ -24,6 +24,29 @@ services:
       - hgw
       - ra
 
+  spa:
+    build: ./SPA/
+    image: "${SPA_APP}:${SPA_TAG}"
+    container_name: spa
+    hostname: muc.local
+    env_file:
+      - .env
+    environment:
+      - DB_URL=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo/${MONGO_INITDB_DATABASE}?authSource=${MONGO_INITDB_ROOT_USERNAME}
+      - SD_H=sd
+      - MU_H=mu
+      - RA_H=ra
+      - HGW_H=hgw
+
+    volumes:
+      - ./SPA/mu-app/:/SPA
+    ports:
+      - "${SPA_API_PORT}:${SPA_API_PORT}"
+
+    depends_on:
+      - mu
+      - sd
+
   mu:
     build: ./MU/
     image: "${MU_APP}:${MU_TAG}"

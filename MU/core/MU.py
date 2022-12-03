@@ -356,7 +356,7 @@ class MU:
             # Save new context
             logger.info(self.export_dict())
 
-            result = await update_MU_by_PID(self.PID_MU_old, self.export_dict())
+            result = await update_MU_by_PID(self.PID_MU_old.h, self.export_dict())
 
             if result:
                 logger.warning("Updated MU Context success")
@@ -442,7 +442,7 @@ class MU:
             # Save new context
             logger.info(self.export_dict())
 
-            result = await update_MU_by_PID(self.PID_MU, self.export_dict())
+            result = await update_MU_by_PID(self.PID_MU.h, self.export_dict())
 
             if result:
                 logger.warning("Updated MU Context success")

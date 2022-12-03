@@ -39,15 +39,15 @@ const SD = () => {
 
 
   useEffect(() => {
-
-
     getSDs();
+
   }, []);
 
   const authenticate = (pid_sd) => {
     MU_API.post("/app/v1/auth?PID_SD=" + pid_sd).then((response) => {
       alert("Smart Device PID= " + pid_sd + " authenticated to MU!");
       console.log(response)
+      window.location.reload();
 
     }).catch(error => {
       alert("Error Ocurred in Smart Devices Authentication :" + error);
@@ -102,6 +102,8 @@ const SD = () => {
                     <th>TAG</th>
                     <th>ID</th>
                     <th>PID</th>
+                    <th>Session Key</th>
+
                     <th scope="col">Action</th>
 
                   </tr>
@@ -116,6 +118,7 @@ const SD = () => {
                         <th scope="row">{sd.TAG_SD}</th>
                         <td>{sd.ID_SD}</td>
                         <td>{sd.PID_SD}</td>
+                        <td>{sd.SK === null ? "Not Authenticated yet": sd.SK}</td>
 
                         <td >
 
@@ -128,7 +131,7 @@ const SD = () => {
                             onClick={() => authenticate(sd.PID_SD)}
                             className="btn btn-outline-primary"
                             disabled={sd.SK !== null}
-                          > {sd.SK !== null ? "Authenticated": "Authenticate"}
+                          > {sd.SK !== null ? "Authenticated" : "Authenticate"}
                           </button>
                         </td>
                       </tr>

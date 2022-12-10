@@ -45,3 +45,18 @@ Inside each entity's project folder, we find the following structure:
 | .env   | environnement variables  |
 | requirements.txt | Python requirements  |
 
+### Project Setup
+**NOTE**: This project was developed and tested on *ubuntu 22.04 Linux* 
+#### Prerequisite
+Install **Docker** and **Docker Compose** Community Edition for your OS (Windows, Mac, Linux)
+
+
+For *Windows OS* you can install **Docker** and **Docker Compose** by following [this](https://docs.docker.com/desktop/install/windows-install/ "this")  tutorial
+
+Install Python 
+
+
+```bash
+# Clone the repository
+git clone https://github.com/medaliyou/IoT_Prod
+```

@@ -113,7 +113,15 @@ async def auth(PID_SD):
 
 
 async def load_SD(PID_SD: str):
-    request_url = "http://{}:{}/SD/PID/{}".format(settings.SD_H, settings.SD_API_PORT, PID_SD)
+    try:
+        if settings.SD_H is not None:
+            request_url = "http://{}:{}/SD/PID/{}".format(settings.SD_H, settings.SD_API_PORT, PID_SD)
+        else:
+            request_url = "http://0.0.0.0:{}/SD/PID/{}".format(settings.SD_API_PORT, PID_SD)
+
+    except AttributeError as e:
+        request_url = "http://0.0.0.0:{}/SD/PID/{}".format(settings.SD_API_PORT, PID_SD)
+
     try:
         response = requests.get(request_url)
         if response is not None:
@@ -121,7 +129,7 @@ async def load_SD(PID_SD: str):
             return ErrorModel(0, response)
     except Exception as e:
         logger.error(e)
-        return ErrorModel(1, response)
+        return ErrorModel(1, "Couldn't Load SD")
 
 
 @router.post("/update_password", tags=["update_password"])

@@ -1,0 +1,19 @@
+[Unit]
+Description=MU RPC App
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+WorkingDirectory=/home/iot/IoT/MU
+Type=simple
+Restart=on-failure
+RestartSec=1
+User=iot
+Environment=PYTHONPATH=/home/iot/IoT/MU
+ExecStart=/usr/bin/python3 /home/iot/IoT/MU/services/MU.py
+Requires=MU.service 
+
+
+[Install]
+WantedBy=multi-user.target
+

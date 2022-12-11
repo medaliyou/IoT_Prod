@@ -1,0 +1,17 @@
+[Unit]
+Description=HGW App
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+WorkingDirectory=/home/iot/IoT/HGW
+Type=simple
+Restart=on-failure
+RestartSec=1
+User=iot
+Environment=PYTHONPATH=/home/iot/IoT/HGW
+ExecStart=/bin/bash /home/iot/IoT/HGW/start.sh
+
+[Install]
+WantedBy=multi-user.target
+

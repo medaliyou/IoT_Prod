@@ -12,8 +12,11 @@ RUN mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
 
 # add app
 COPY ./mu-app/ ./
+
+EXPOSE 3000
+
 # start app
-CMD ["npm", "start"]
+ENTRYPOINT /SPA/run.sh
 
 
 

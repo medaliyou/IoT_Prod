@@ -1,5 +1,5 @@
 
 
-python3 ./services/RA.py & # gRPC Server
-P1=$!
-wait $P1
+python3 ./services/RA.py  # gRPC Server
+#P1=$!
+#wait $P1

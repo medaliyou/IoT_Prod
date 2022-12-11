@@ -1,0 +1,17 @@
+[Unit]
+Description=RA App
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+WorkingDirectory=/home/iot/IoT/RA
+Type=simple
+Restart=on-failure
+RestartSec=1
+User=iot
+Environment=PYTHONPATH=/home/iot/IoT/RA
+ExecStart=/bin/bash /home/iot/IoT/RA/start.sh
+
+[Install]
+WantedBy=multi-user.target
+
